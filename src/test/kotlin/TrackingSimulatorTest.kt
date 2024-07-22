@@ -1,6 +1,6 @@
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
-import kotlin.test.assertNotNull
+import org.testng.Assert.assertNotNull
+import org.testng.annotations.Test
+
 
 class TrackingSimulatorTest {
     @Test

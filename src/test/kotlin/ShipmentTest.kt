@@ -1,7 +1,12 @@
+import Enums.Status
 import Shipments.*
-import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
+import Updates.DateUpdate
+import Updates.LocationUpdate
+import Updates.NoteUpdate
+import Updates.StatusUpdate
+import org.testng.Assert.assertEquals
+import org.testng.Assert.assertNotNull
+import org.testng.annotations.Test
 
 class ShipmentTest {
 
@@ -47,10 +52,10 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        StatusUpdate(ShippingStatus.Shipped, "123").updateShipment(shipment)
+        StatusUpdate(Status.Shipped, "123", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
-        assertEquals(ShippingStatus.Shipped, shipment.status)
-        assertEquals(ShippingStatus.Shipped, tracker.status.value)
+        assertEquals(Status.Shipped, shipment.status)
+        assertEquals(Status.Shipped, tracker.status.value)
         assertEquals(1, shipment.updates.size)
         assertEquals(1, tracker.updates.size)
     }
@@ -60,10 +65,10 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        LocationUpdate("123", "Salt Lake").updateShipment(shipment)
+        LocationUpdate("123", "Salt Lake", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
-        assertEquals(ShippingStatus.Location, shipment.status)
-        assertEquals(ShippingStatus.Location, tracker.status.value)
+        assertEquals(Status.Location, shipment.status)
+        assertEquals(Status.Location, tracker.status.value)
         assertEquals(1, shipment.updates.size)
         assertEquals(1, tracker.updates.size)
     }
@@ -73,10 +78,10 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        DateUpdate(ShippingStatus.Delayed, "123", "1234").updateShipment(shipment)
+        DateUpdate(Status.Delayed, "123", "1234", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
-        assertEquals(ShippingStatus.Delayed, shipment.status)
-        assertEquals(ShippingStatus.Delayed, tracker.status.value)
+        assertEquals(Status.Delayed, shipment.status)
+        assertEquals(Status.Delayed, tracker.status.value)
         assertEquals(1234, shipment.expected)
         assertEquals(1234, tracker.expected.value)
         assertEquals(1, shipment.updates.size)
@@ -88,10 +93,10 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        NoteUpdate("123", "hello").updateShipment(shipment)
+        NoteUpdate("123", "hello", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
-        assertEquals(ShippingStatus.NoteAdded, shipment.status)
-        assertEquals(ShippingStatus.NoteAdded, tracker.status.value)
+        assertEquals(Status.NoteAdded, shipment.status)
+        assertEquals(Status.NoteAdded, tracker.status.value)
         assertEquals(1, shipment.notes.size)
         assertEquals(1, tracker.notes.size)
         assertEquals(1, shipment.updates.size)
