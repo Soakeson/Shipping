@@ -1,6 +1,7 @@
 package Server.Observers
 
 import Enums.Status
+import Server.Updates.UpdateRecord
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import Shipments.Shipment
@@ -20,7 +21,7 @@ class ShipmentTracker (
         shipment.subscribe(observer = this)
     }
 
-    override fun update(status: Status, expected: Long, location: String, updates: List<Update>, notes: List<String>) {
+    override fun update(status: Status, expected: Long, location: String, updates: List<UpdateRecord>, notes: List<String>) {
         this.status.value = status
         this.expected.value = expected
         this.location.value = location

@@ -1,7 +1,7 @@
 package Shipments
 
 import Server.Observers.ShipmentObserver
-import ShipmentSubject
+import Server.Subjects.ShipmentSubject
 import Enums.Status
 import Server.Updates.UpdateRecord
 

@@ -1,3 +1,5 @@
+package Server.Subjects
+
 import Server.Observers.ShipmentObserver
 
 interface ShipmentSubject {

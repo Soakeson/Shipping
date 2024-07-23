@@ -1,5 +1,8 @@
+package Server.Views
+
 import Server.Observers.ShipmentTracker
 import Server.Updates.UpdateRecord
+import ShipmentController
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
