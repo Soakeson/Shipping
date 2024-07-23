@@ -1,9 +1,10 @@
 import Enums.Status
+import Server.Observers.ShipmentTracker
 import Shipments.*
-import Updates.DateUpdate
-import Updates.LocationUpdate
-import Updates.NoteUpdate
-import Updates.StatusUpdate
+import Updates.Shipped
+import Updates.Location
+import Updates.Note
+import Updates.Created
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
 import org.testng.annotations.Test
@@ -52,7 +53,7 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        StatusUpdate(Status.Shipped, "123", shipment)
+        Created(Status.Shipped, "123", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
         assertEquals(Status.Shipped, shipment.status)
         assertEquals(Status.Shipped, tracker.status.value)
@@ -65,7 +66,7 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        LocationUpdate("123", "Salt Lake", shipment)
+        Location("123", "Salt Lake", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
         assertEquals(Status.Location, shipment.status)
         assertEquals(Status.Location, tracker.status.value)
@@ -78,7 +79,7 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        DateUpdate(Status.Delayed, "123", "1234", shipment)
+        Shipped(Status.Delayed, "123", "1234", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
         assertEquals(Status.Delayed, shipment.status)
         assertEquals(Status.Delayed, tracker.status.value)
@@ -93,7 +94,7 @@ class ShipmentTest {
         val shipment = StandardShipment("1", 123)
         val tracker = ShipmentTracker(shipment)
         shipment.subscribe(tracker)
-        NoteUpdate("123", "hello", shipment)
+        Note("123", "hello", shipment)
         assertEquals(tracker.expected.value, shipment.expected)
         assertEquals(Status.NoteAdded, shipment.status)
         assertEquals(Status.NoteAdded, tracker.status.value)
