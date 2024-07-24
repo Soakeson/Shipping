@@ -1,11 +1,6 @@
-import Enums.Status
-import Server.Observers.ShipmentTracker
-import Server.Shipments.Shipper
 import Shipments.*
-import Updates.Created
 import Updates.Delayed
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertNotNull
 
@@ -51,4 +46,5 @@ class ShipmentTest {
         assertNotNull(shipment)
         assertFails { Delayed().update(shipment, "1721793294246") }
     }
+
 }

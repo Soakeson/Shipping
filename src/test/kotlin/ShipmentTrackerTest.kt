@@ -1,6 +1,7 @@
 import Enums.Status
 import Server.Observers.ShipmentTracker
 import Server.Shipments.Shipper
+import Server.Updates.Lost
 import Shipments.Shipment
 import Shipments.StandardShipment
 import Updates.*
@@ -84,6 +85,34 @@ class ShipmentTrackerTest {
         assertEquals(1, tracker.notes.size)
         assertEquals(1, shipment.updates.size)
         assertEquals(1, tracker.updates.size)
+    }
+
+    @Test
+    fun testShipmentLost() {
+        val shipment = Shipper.new("1", "express")
+        Lost().update(shipment)
+        val tracker = ShipmentTracker(shipment)
+        shipment.subscribe(tracker)
+        Cancelled().update(shipment)
+        assertEquals(tracker.expected.value, shipment.expected)
+        assertEquals(Status.Lost, shipment.status)
+        assertEquals(Status.Lost, tracker.status.value)
+        assertEquals(2, shipment.updates.size)
+        assertEquals(2, tracker.updates.size)
+    }
+
+    @Test
+    fun testShipmentDelivered() {
+        val shipment = Shipper.new("1", "express")
+        Delivered().update(shipment)
+        val tracker = ShipmentTracker(shipment)
+        shipment.subscribe(tracker)
+        Cancelled().update(shipment)
+        assertEquals(tracker.expected.value, shipment.expected)
+        assertEquals(Status.Delivered, shipment.status)
+        assertEquals(Status.Delivered, tracker.status.value)
+        assertEquals(2, shipment.updates.size)
+        assertEquals(2, tracker.updates.size)
     }
 
     @Test
