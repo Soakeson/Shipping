@@ -9,8 +9,9 @@ class Shipped : Update {
     override fun update(shipment: Shipment, param: String?) {
         try {
             shipment.expected = param!!.toLong()
-        } catch(e: Error) {
-            throw Error("${e}: Invalid expected date.")
+        } catch(e: Exception) {
+            println(e.message)
+            throw Exception("${e}: Invalid expected date.")
         }
         shipment.updates.add(UpdateRecord(status, shipment.status, System.currentTimeMillis()))
         shipment.status = status

@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    function tryUpdate() {
+        const input = document.getElementById("input");
+        fetch(`/update`, {
+            method: "post",
+            body: input.value
+        })
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <input>
-    <button>Update Shipment</button>
+    <input id="input">
+    <button onclick="tryUpdate()">Update Shipment</button>
 </head>
 <body>
 

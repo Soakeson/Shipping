@@ -2,7 +2,7 @@ package Server.Views
 
 import Server.Observers.ShipmentTracker
 import Server.Updates.UpdateRecord
-import ShipmentController
+import ShippingController
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
@@ -41,7 +41,7 @@ class TrackerView() : View {
             Button(
                 onClick = {
                     if (shippingId.text.isNotBlank()) {
-                        ShipmentController.trackShipment(shippingId.text)?.let { trackers.add(it) }
+                        ShippingController.trackShipment(shippingId.text)?.let { trackers.add(it) }
                     }
                 },
                 modifier = Modifier.fillMaxWidth()

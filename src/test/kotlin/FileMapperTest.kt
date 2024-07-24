@@ -1,8 +1,9 @@
 import Mappers.FileMapper
 import Mappers.FileType
-import org.testng.Assert.assertEquals
-import org.testng.Assert.assertNotNull
-import org.testng.annotations.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.test.assertNotNull
 
 class FileMapperTest {
     @Test
@@ -12,7 +13,7 @@ class FileMapperTest {
 
     @Test
     fun testInvalidPath() {
-         { FileMapper(FileType.CSV, "test-file.txt", "1", "2", "3", "4") }
+         assertFails { FileMapper(FileType.CSV, "test-file.txt", "1", "2", "3", "4") }
     }
 
     @Test
